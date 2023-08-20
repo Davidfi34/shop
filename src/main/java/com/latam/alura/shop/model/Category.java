@@ -1,36 +1,30 @@
 package com.latam.alura.shop.model;
 
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "category")
 public class Category {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id_category;
-    private String name;
+    @EmbeddedId
+    private CategoryId categoryId;
 
-    public Category(String name) {
-        this.name = name;
-    }
 
     public Category(){}
 
-    public Long getId_category() {
-        return id_category;
+    public Category(String name) {
+        this.categoryId = new CategoryId(name,"456");
     }
 
-    public void setId_category(Long id_category) {
-        this.id_category = id_category;
-    }
 
     public String getName() {
-        return name;
+        return this.categoryId.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.categoryId.setName(name);
     }
 }

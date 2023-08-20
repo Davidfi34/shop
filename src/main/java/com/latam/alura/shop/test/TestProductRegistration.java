@@ -3,6 +3,7 @@ package com.latam.alura.shop.test;
 import com.latam.alura.shop.dao.CategoryDao;
 import com.latam.alura.shop.dao.ProductDao;
 import com.latam.alura.shop.model.Category;
+import com.latam.alura.shop.model.CategoryId;
 import com.latam.alura.shop.model.Product;
 import com.latam.alura.shop.util.JPAUtils;
 
@@ -33,15 +34,15 @@ public class TestProductRegistration {
         productName.forEach(prod-> System.out.printf(prod.getDescription()));
 
 
-        //for category name
-        List<Product> productCategory = productDao.getByNameCategory("smartphone");
-        productCategory.forEach(prod-> System.out.printf(prod.getName()));
-
-
         //get Price By Name
         //return BigDecimal
         BigDecimal priceProduct = productDao.getPriceByName("Samsung");
         System.out.printf("Price: "+priceProduct);
+
+
+        Category find = em.find(Category.class, new CategoryId("smartphone","456"));
+
+        System.out.println(find.getName());
 
 
 

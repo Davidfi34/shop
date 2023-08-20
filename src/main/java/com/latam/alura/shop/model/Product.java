@@ -1,16 +1,15 @@
 package com.latam.alura.shop.model;
 
 
-
 import javax.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "product")
+@NamedQuery(name = "Product.getPrice",query = "SELECT P.price FROM Product AS P WHERE P.name = :name")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,7 +17,7 @@ public class Product {
     private String description;
     private BigDecimal price;
     private LocalDate datetime = LocalDate.now();
-    @ManyToOne //many products for a single category
+    @ManyToOne(fetch = FetchType.LAZY) //many products for a single category
     private Category category;
 
 
@@ -47,7 +46,7 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPrice(BigDecimal bigDecimal) {
+    public BigDecimal getPrice() {
         return price;
     }
 
